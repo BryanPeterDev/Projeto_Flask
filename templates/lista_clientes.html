@@ -8,13 +8,18 @@
     </tr>
   </thead>
   <tbody>
-    
+
+    {%for cliente in clientes %}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row">{{ cliente.id }}</th>
+      <td>{{ cliente.name }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>
+          <button class="btn btn-primary">Editar</button>
+          <button class="btn btn-danger">Deletar</button>
+      </td>
     </tr>
+    {% endfor %}
     
   </tbody>
 </table>
