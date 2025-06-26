@@ -38,15 +38,32 @@ def form_clientes():
     "formulario para criar cliente"
     return render_template('form_clientes.html')
 
-@cliente_routes.route('/<int:cliente_id>/edit',methods=['PUT']) 
+@cliente_routes.route('/<int:cliente_id>/edit') 
 def edit_clientes(cliente_id):
     "editar um cliente existente usando um formulario"
-    return render_template('form_edit_clientes.html')
+    cliente= None
+    
+    for c in CLIENTES:
+        if c['id'] == cliente_id:
+            cliente = c
+            
+
+    return render_template('form_clientes.html',cliente=cliente)
 
 @cliente_routes.route('/<int:cliente_id>/update', methods=['PUT']) 
 def atualiza_clientes(cliente_id):
+    cliente_editado = None
+    data = request.json
     "atualiza um cliente existente informações"
-    pass
+
+    for c in CLIENTES:
+        if c['id'] == cliente_id:
+            c['nome'] = data['nome']
+            c['email'] = data['email']
+            # Atualiza o cliente editado
+            cliente_editado = c
+            
+            return render_template('item_cliente.html', cliente=cliente_editado)
 
 @cliente_routes.route('/<int:cliente_id>/delete', methods=['DELETE']) 
 def delete_clientes(cliente_id):
