@@ -14,7 +14,9 @@ def lista_clientes():
 @cliente_routes.route('/<int:cliente_id>') #url passando parametro 
 def detalhe_clientes(cliente_id):
     "Detalhes de um cliente específico"
-    return render_template('detalhe_clientes.html')
+    cliente = list(filter(lambda c: c['id'] == cliente_id, CLIENTES))[0]
+
+    return render_template('detalhe_clientes.html', cliente=cliente)
 
 @cliente_routes.route('/inserir',methods=['POST'])
 def inserir_clientes():
